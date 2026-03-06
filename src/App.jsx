@@ -12,6 +12,12 @@ function App() {
     setColors([{ id: nanoid(), ...newColor }, ...colors]);
   }
 
+  function handleDeleteColor(id) {
+    setColors(
+      colors.filter((color) => color.id !== id)
+    );
+  }
+
   return (
     <>
       <h1>Theme Creator</h1>
@@ -19,9 +25,11 @@ function App() {
       <ColorForm onAddColor={handleAddColor} />
 
       <section className="color-grid">
-        {colors.map((color) => (
-          <Color key={color.id} color={color} />
-        ))}
+        {colors.length === 0 ? (
+          <p>No colors. Add one!</p>
+        ): (
+          colors.map(color => (<Color key={color.id} color={color} onDelete={handleDeleteColor} />))
+        )}
       </section>
     </>
   );

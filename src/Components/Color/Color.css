@@ -30,3 +30,12 @@
   font-size: 0.75rem;
   opacity: 0.8;
 }
+
+.color-card-highlight {
+  display: inline;
+  padding: 6px 6px;
+  margin: 5px;
+  border-radius: 10px;
+  background: black;
+  color: white;
+}
