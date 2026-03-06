@@ -1,0 +1,10 @@
+.color-input {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.color-input label {
+  min-width: 110px;
+  font-size: 0.85rem;
+}
