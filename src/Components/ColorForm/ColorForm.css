@@ -1,40 +1,58 @@
 .color-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
+
   max-width: 500px;
-  padding: 24px;
+  padding: 28px;
   margin-bottom: 40px;
+
   background: white;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  border-radius: 20px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+.color-form--inline {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  gap: 12px;
 }
 
 .color-form input[type="text"] {
   padding: 10px 14px;
-  border-radius: 8px;
+  border-radius: 10px;
   border: 1px solid #ddd;
   font-size: 0.9rem;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
 .color-form input[type="text"]:focus {
   outline: none;
-  border-color: #5C6BC0;
+  border-color: #5c6bc0;
+  box-shadow: 0 0 0 3px rgba(92, 107, 192, 0.2);
+}
+
+.color-form--inline input[type="text"] {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 8px 12px;
 }
 
 .color-form button {
-  margin-top: 10px;
-  padding: 10px 16px;
+  padding: 12px 18px;
   border: none;
-  border-radius: 10px;
+  border-radius: 14px;
   background: #252629;
   color: white;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.1s ease;
+  transition: background 0.2s ease, transform 0.1s ease,
+    box-shadow 0.2s ease;
 }
 
 .color-form button:hover {
   background: #000;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
