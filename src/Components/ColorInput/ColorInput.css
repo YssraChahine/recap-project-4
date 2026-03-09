@@ -1,10 +1,29 @@
 .color-input {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto 1fr;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .color-input label {
-  min-width: 110px;
   font-size: 0.85rem;
+  font-weight: 500;
+  min-width: 90px;
+}
+
+.color-input input[type="color"] {
+  width: 40px;
+  height: 32px;
+  border: none;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.color-input input[type="text"] {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 0.85rem;
+  width: 100%;
 }
