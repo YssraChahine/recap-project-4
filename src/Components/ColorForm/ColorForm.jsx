@@ -5,7 +5,7 @@ import "./ColorForm.css";
 export default function ColorForm({
   role = "",
   hex = "#000000",
-  contrastText = "#ffffff",
+  contrastText = "#FFFFFF",
   onSubmit,
   className = "color-form",
 }) {
