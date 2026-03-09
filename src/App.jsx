@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
 import { initialColors } from "./lib/colors";
 import Color from "./Components/Color/Color";
@@ -6,7 +6,15 @@ import ColorForm from "./Components/ColorForm/ColorForm";
 import "./App.css";
 
 function App() {
-  const [colors, setColors] = useState(initialColors);
+
+  const [colors, setColors] = useState(() => {
+    const storedColors = localStorage.getItem("themeColors");
+    return storedColors ? JSON.parse(storedColors) : initialColors;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("themeColors", JSON.stringify(colors));
+  }, [colors]);
 
   function handleAddColor(newColor) {
     setColors((prevColors) => [
