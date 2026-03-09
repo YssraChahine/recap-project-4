@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./Color.css";
 import ColorForm from "../ColorForm/ColorForm";
+import CopyToClipboard from "../CopyToClipboard/CopyToClipboard";
 
 export default function Color({ color, onDelete, onUpdateColor }) {
   const [isConfirming, setIsConfirming] = useState(false);
@@ -32,6 +33,7 @@ export default function Color({ color, onDelete, onUpdateColor }) {
         <>
           <span className="color-card__role">{color.role}</span>
           <span className="color-card__hex">{color.hex}</span>
+          <CopyToClipboard text={color.hex}/>
           <span className="color-card__contrast">{color.contrastText}</span>
 
           {isConfirming ? (
