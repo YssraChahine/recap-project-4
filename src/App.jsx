@@ -6,7 +6,6 @@ import ColorForm from "./Components/ColorForm/ColorForm";
 import "./App.css";
 
 function App() {
-
   const [colors, setColors] = useState(() => {
     const storedColors = localStorage.getItem("themeColors");
     return storedColors ? JSON.parse(storedColors) : initialColors;
@@ -17,28 +16,28 @@ function App() {
   }, [colors]);
 
   function handleAddColor(newColor) {
-    setColors((prevColors) => [
+    setColors((prev) => [
       { id: nanoid(), ...newColor },
-      ...prevColors,
+      ...prev,
     ]);
   }
 
   function handleDeleteColor(id) {
-    setColors((prevColors) =>
-      prevColors.filter((color) => color.id !== id)
+    setColors((prev) =>
+      prev.filter((color) => color.id !== id)
     );
   }
 
   function handleUpdateColor(updatedColor) {
-    setColors((prevColors) =>
-      prevColors.map((color) =>
+    setColors((prev) =>
+      prev.map((color) =>
         color.id === updatedColor.id ? updatedColor : color
       )
     );
   }
 
   return (
-    <>
+    <div className="app-container">
       <h1>Theme Creator</h1>
 
       <ColorForm onSubmit={handleAddColor} />
@@ -57,7 +56,7 @@ function App() {
           ))
         )}
       </section>
-    </>
+    </div>
   );
 }
 
