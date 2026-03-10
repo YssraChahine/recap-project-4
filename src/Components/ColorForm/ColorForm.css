@@ -1,58 +1,60 @@
 .color-form {
   display: flex;
   flex-direction: column;
-  gap: 18px;
-
-  max-width: 500px;
+  gap: 22px;
   padding: 28px;
-  margin-bottom: 40px;
-
+  border-radius: 24px;
   background: white;
-  border-radius: 20px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  max-width: 500px;
+  margin: 0 auto 50px auto;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
 }
 
 .color-form--inline {
-  background: transparent;
-  padding: 0;
-  margin: 0;
-  box-shadow: none;
-  gap: 12px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
 }
 
 .color-form input[type="text"] {
-  padding: 10px 14px;
-  border-radius: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
   border: 1px solid #ddd;
-  font-size: 0.9rem;
-  transition: border 0.2s ease, box-shadow 0.2s ease;
+  font-size: 0.95rem;
+  transition: border 0.2s ease;
 }
 
 .color-form input[type="text"]:focus {
   outline: none;
   border-color: #5c6bc0;
-  box-shadow: 0 0 0 3px rgba(92, 107, 192, 0.2);
 }
 
-.color-form--inline input[type="text"] {
-  background: rgba(255, 255, 255, 0.9);
-  padding: 8px 12px;
+.color-input-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+input[type="color"] {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 }
 
 .color-form button {
-  padding: 12px 18px;
-  border: none;
+  padding: 14px 18px;
   border-radius: 14px;
-  background: #252629;
+  border: none;
+  background: linear-gradient(135deg, #252629, #111);
   color: white;
   font-weight: 600;
+  letter-spacing: 0.5px;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.1s ease,
-    box-shadow 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .color-form button:hover {
-  background: #000;
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
