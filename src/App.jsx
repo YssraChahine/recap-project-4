@@ -67,23 +67,20 @@ function App() {
   }
 
   function handleAddColor(newColor) {
-    if (isDefaultTheme) return;
-
+    
     setThemes((prevThemes) =>
       prevThemes.map((theme) =>
         theme.id === activeThemeId ? {...theme, colors: [{ id: nanoid(), ...newColor }, ...theme.colors]}: theme));
     }
 
   function handleDeleteColor(id) {
-    if (isDefaultTheme) return;
-
+  
     setThemes((prevThemes) =>
       prevThemes.map((theme) =>
         theme.id === activeThemeId ? {...theme, colors: theme.colors.filter((color) => color.id !== id)}: theme));
     }
 
   function handleUpdateColor(updatedColor) {
-    if (isDefaultTheme) return;
 
     setThemes((prevThemes) =>
       prevThemes.map((theme) =>
@@ -112,13 +109,11 @@ function App() {
         </div>
       </section>
 
-      <ColorForm onSubmit={handleAddColor} disabled={isDefaultTheme}/>
-
-      {isDefaultTheme && (<p className="default-theme-hint">The Default Theme is read only. Create a new theme to add, edit, or delete colors.</p>)}
+      <ColorForm onSubmit={handleAddColor}/>
 
       <section className="color-grid">
         {activeTheme.colors.length === 0 ? (<p>No colors yet. Add a new one!</p>) : (activeTheme.colors.map((color) => (
-            <Color key={color.id} color={color} onDelete={handleDeleteColor} onUpdateColor={handleUpdateColor} readOnly={isDefaultTheme}/>)))}
+            <Color key={color.id} color={color} onDelete={handleDeleteColor} onUpdateColor={handleUpdateColor} />)))}
       </section>
     </div>
   );

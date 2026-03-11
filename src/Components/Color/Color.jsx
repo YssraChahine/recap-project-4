@@ -3,7 +3,7 @@ import "./Color.css";
 import ColorForm from "../ColorForm/ColorForm";
 import CopyToClipboard from "../CopyToClipboard/CopyToClipboard";
 
-export default function Color({ color, onDelete, onUpdateColor, readOnly = false,}) {
+export default function Color({ color, onDelete, onUpdateColor}) {
   const [isConfirming, setIsConfirming] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [contrastData, setContrastData] = useState(null);
@@ -53,7 +53,7 @@ export default function Color({ color, onDelete, onUpdateColor, readOnly = false
         </div>
       )}
 
-      {!readOnly && (isConfirming ? (
+      {isConfirming ? (
           <div className="color-card-highlight">
             <p>Are you sure?</p>
             <button onClick={()=> onDelete(color.id)}>Yes</button>
@@ -62,7 +62,7 @@ export default function Color({ color, onDelete, onUpdateColor, readOnly = false
             <button onClick={()=> setIsConfirming(true)}>Delete</button>
             <button onClick={()=> setIsEditing(true)}>Edit</button>
           </>
-        ))}
+        )}
     </article>
   );
 }
