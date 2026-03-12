@@ -41,7 +41,7 @@ function App() {
   function handleCreateTheme() {
     const name = window.prompt("Enter a name for your new theme:");
 
-    const newTheme = {id: nanoid(),name: name.trim(),colors: []};
+    const newTheme = { id: nanoid(), name: name.trim(), colors: [] };
 
     // Neues Theme am ende der Liste anhängen
     setThemes((prevThemes) => [...prevThemes, newTheme]);
@@ -52,12 +52,17 @@ function App() {
   function handleRenameTheme() {
     if (isDefaultTheme) return;
 
-    const name = window.prompt("Enter a new name for this theme:", activeTheme.name);
+    const name = window.prompt(
+      "Enter a new name for this theme:",
+      activeTheme.name,
+    );
 
     //Neue kopie der themes wird erstellt
     setThemes((prevThemes) =>
       prevThemes.map((theme) =>
-        theme.id === activeThemeId ? { ...theme, name: name.trim()}: theme));
+        theme.id === activeThemeId ? { ...theme, name: name.trim() } : theme,
+      ),
+    );
   }
 
   // Theme löschen
@@ -78,27 +83,47 @@ function App() {
 
   // neue farbe hinzufügen
   function handleAddColor(newColor) {
-    
     setThemes((prevThemes) =>
       prevThemes.map((theme) =>
-        theme.id === activeThemeId ? {...theme, colors: [{ id: nanoid(), ...newColor }, ...theme.colors]}: theme));
-    }
+        theme.id === activeThemeId
+          ? {
+              ...theme,
+              colors: [{ id: nanoid(), ...newColor }, ...theme.colors],
+            }
+          : theme,
+      ),
+    );
+  }
 
-    // farbe löschen
+  // farbe löschen
   function handleDeleteColor(id) {
-  
     setThemes((prevThemes) =>
       prevThemes.map((theme) =>
-        theme.id === activeThemeId ? {...theme, colors: theme.colors.filter((color) => color.id !== id)}: theme));
-    }
+        theme.id === activeThemeId
+          ? {
+              ...theme,
+              colors: theme.colors.filter((color) => color.id !== id),
+            }
+          : theme,
+      ),
+    );
+  }
 
-    // farbe bearbeiten
+  // farbe bearbeiten
   function handleUpdateColor(updatedColor) {
-
     setThemes((prevThemes) =>
       prevThemes.map((theme) =>
-        theme.id === activeThemeId ? {...theme, colors: theme.colors.map((color) => color.id === updatedColor.id ? updatedColor : color),}: theme));
-    }
+        theme.id === activeThemeId
+          ? {
+              ...theme,
+              colors: theme.colors.map((color) =>
+                color.id === updatedColor.id ? updatedColor : color,
+              ),
+            }
+          : theme,
+      ),
+    );
+  }
 
   return (
     <div className="app-container">
@@ -107,26 +132,55 @@ function App() {
       <section className="theme-controls">
         <div className="theme-controls__group">
           <label htmlFor="theme-select">Select Theme</label>
-          <select id="theme-select" value={activeThemeId} onChange={(event) => setActiveThemeId(event.target.value)}>
+          <select
+            id="theme-select"
+            value={activeThemeId}
+            onChange={(event) => setActiveThemeId(event.target.value)}
+          >
             {themes.map((theme) => (
               <option key={theme.id} value={theme.id}>
                 {theme.name}
-              </option>))}
+              </option>
+            ))}
           </select>
         </div>
 
         <div className="theme-controls__buttons">
-          <button type="button" onClick={handleCreateTheme}>Create Theme</button>
-          <button type="button" onClick={handleRenameTheme} disabled={isDefaultTheme}>Rename Theme</button>
-          <button type="button" onClick={handleDeleteTheme} disabled={isDefaultTheme}>Delete Theme</button>
+          <button type="button" onClick={handleCreateTheme}>
+            Create Theme
+          </button>
+          <button
+            type="button"
+            onClick={handleRenameTheme}
+            disabled={isDefaultTheme}
+          >
+            Rename Theme
+          </button>
+          <button
+            type="button"
+            onClick={handleDeleteTheme}
+            disabled={isDefaultTheme}
+          >
+            Delete Theme
+          </button>
         </div>
       </section>
 
-      <ColorForm onSubmit={handleAddColor}/>
+      <ColorForm onSubmit={handleAddColor} />
 
       <section className="color-grid">
-        {activeTheme.colors.length === 0 ? (<p>No colors yet. Add a new one!</p>) : (activeTheme.colors.map((color) => (
-            <Color key={color.id} color={color} onDelete={handleDeleteColor} onUpdateColor={handleUpdateColor} />)))}
+        {activeTheme.colors.length === 0 ? (
+          <p>No colors yet. Add a new one!</p>
+        ) : (
+          activeTheme.colors.map((color) => (
+            <Color
+              key={color.id}
+              color={color}
+              onDelete={handleDeleteColor}
+              onUpdateColor={handleUpdateColor}
+            />
+          ))
+        )}
       </section>
     </div>
   );
