@@ -13,7 +13,7 @@ export default function Color({ color, onDelete, onUpdateColor}) {
     async function fetchContrast() {
       try {
         setLoading(true);
-
+        // Post anfrage an die API
         const response = await fetch("https://www.aremycolorsaccessible.com/api/are-they", {
             method: "POST", 
             headers: {"Content-Type": "application/json"},
@@ -25,20 +25,23 @@ export default function Color({ color, onDelete, onUpdateColor}) {
     } fetchContrast();
   }, [color.hex, color.contrastText]);
 
+  // bearbeitungsmodus wenn aktiv 
   if (isEditing) {
     return (
       <article className="color-card" style={{backgroundColor: color.hex, color: color.contrastText,}}>
+        {/* formular zum beatbeiten der Farbe */}
         <ColorForm className="color-form color-form--inline" 
           role={color.role} 
           hex={color.hex} 
           contrastText={color.contrastText}
+          // wenn Formular abgesendet wird, Parent informieren
             onSubmit={(updatedValues) => {
               onUpdateColor({id: color.id, ...updatedValues}); setIsEditing(false)}}/>
       </article>);
   }
 
   return (
-    <article className="color-card" style={{backgroundColor: color.hex, color: color.contrastText}}>
+    <section className="color-card" style={{backgroundColor: color.hex, color: color.contrastText}}>
       
       <span className="color-card__role">{color.role}</span>
       <span className="color-card__hex">{color.hex}</span>
@@ -46,13 +49,14 @@ export default function Color({ color, onDelete, onUpdateColor}) {
       <span className="color-card__contrast">{color.contrastText}</span>
 
       {loading && <p>Checking contrast...</p>}
-
+     {/* API ergebnis */}
       {contrastData && !loading && (
         <div className={`contrast-${contrastData.overall.toLowerCase()}`}>
           <strong>{contrastData.overall}</strong>
         </div>
       )}
 
+      {/* löschbestätigung + Löschmodus */}
       {isConfirming ? (
           <div className="color-card-highlight">
             <p>Are you sure?</p>
@@ -63,6 +67,6 @@ export default function Color({ color, onDelete, onUpdateColor}) {
             <button onClick={()=> setIsEditing(true)}>Edit</button>
           </>
         )}
-    </article>
+    </section>
   );
 }

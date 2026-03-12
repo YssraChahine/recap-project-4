@@ -6,53 +6,61 @@ import ColorForm from "./Components/ColorForm/ColorForm";
 import "./App.css";
 
 function App() {
+  // Themes speichert alle vorhandenen Themes
   const [themes, setThemes] = useState(() => {
     const storedThemes = localStorage.getItem("themes");
+    // verwendet was im Localstorage gespeichert ist ansonsten wird InitialThemes verwendet
     return storedThemes ? JSON.parse(storedThemes) : initialThemes;
   });
 
+  // speichert, welches Theme aktuell aktiv ist
   const [activeThemeId, setActiveThemeId] = useState(() => {
     const storedActiveThemeId = localStorage.getItem("activeThemeId");
     return storedActiveThemeId ? storedActiveThemeId : initialThemes[0].id;
   });
 
+  // Speichert das Theme im LocalStorage wenn es sich ändert
   useEffect(() => {
     localStorage.setItem("themes", JSON.stringify(themes));
   }, [themes]);
 
+  // Speichert das aktive theme, wenn es sich ändert
   useEffect(() => {
     localStorage.setItem("activeThemeId", activeThemeId);
   }, [activeThemeId]);
 
+  // das aktive theme wird nur neu berechnet wenn sich themes oder activeThemeID ändern
   const activeTheme = useMemo(() => {
     return themes.find((theme) => theme.id === activeThemeId) ?? themes[0];
   }, [themes, activeThemeId]);
 
+  // Prüfung ob DefaultTheme aktiv ist
   const isDefaultTheme = activeTheme?.id === "t1";
 
+  // Neues Theme erstellen
   function handleCreateTheme() {
     const name = window.prompt("Enter a name for your new theme:");
 
-    if (!name || !name.trim()) return;
-
     const newTheme = {id: nanoid(),name: name.trim(),colors: []};
 
+    // Neues Theme am ende der Liste anhängen
     setThemes((prevThemes) => [...prevThemes, newTheme]);
+    // Direkt auf das neue Theme wechseln
     setActiveThemeId(newTheme.id);
   }
-
+  // Theme umbenennen
   function handleRenameTheme() {
     if (isDefaultTheme) return;
 
     const name = window.prompt("Enter a new name for this theme:", activeTheme.name);
 
-    if (!name || !name.trim()) return;
-
+    //Neue kopie der themes wird erstellt
     setThemes((prevThemes) =>
       prevThemes.map((theme) =>
         theme.id === activeThemeId ? { ...theme, name: name.trim()}: theme));
   }
 
+  // Theme löschen
   function handleDeleteTheme() {
     if (isDefaultTheme) return;
 
@@ -60,12 +68,15 @@ function App() {
 
     if (!shouldDelete) return;
 
+    // entfernt das aktuelle theme
     const updatedThemes = themes.filter((theme) => theme.id !== activeThemeId);
 
     setThemes(updatedThemes);
+    // nach dem löschen zurück zum default theme
     setActiveThemeId("t1");
   }
 
+  // neue farbe hinzufügen
   function handleAddColor(newColor) {
     
     setThemes((prevThemes) =>
@@ -73,6 +84,7 @@ function App() {
         theme.id === activeThemeId ? {...theme, colors: [{ id: nanoid(), ...newColor }, ...theme.colors]}: theme));
     }
 
+    // farbe löschen
   function handleDeleteColor(id) {
   
     setThemes((prevThemes) =>
@@ -80,6 +92,7 @@ function App() {
         theme.id === activeThemeId ? {...theme, colors: theme.colors.filter((color) => color.id !== id)}: theme));
     }
 
+    // farbe bearbeiten
   function handleUpdateColor(updatedColor) {
 
     setThemes((prevThemes) =>
